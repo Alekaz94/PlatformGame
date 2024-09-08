@@ -1,12 +1,8 @@
 package entities;
 
 import utils.LoadSave;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 import static utils.Constants.PlayerConstants.*;
 
@@ -25,8 +21,8 @@ public class Player extends Entity {
     private boolean down;
     private float playerSpeed = 2.0f;
 
-    public Player(float x, float y) {
-        super(x, y);
+    public Player(float x, float y, int width, int height) {
+        super(x, y, width, height);
         loadAnimations();
     }
 
@@ -37,7 +33,7 @@ public class Player extends Entity {
     }
 
     public void render(Graphics g) {
-        g.drawImage(animations[playerAction][animationIndex], (int)x, (int)y, 256, 160, null);
+        g.drawImage(animations[playerAction][animationIndex], (int)x, (int)y, (int)width, (int)height, null);
     }
 
     private void updateAnimationTick() {
@@ -96,7 +92,7 @@ public class Player extends Entity {
     }
 
     private void loadAnimations() {
-        BufferedImage image = LoadSave.GetPlayerAtlas();
+        BufferedImage image = LoadSave.GetSpriteAtlas(LoadSave.PLAYER_ATLAS);
         animations = new BufferedImage[9][6];
 
         for(int j = 0; j < animations.length; j++) {
